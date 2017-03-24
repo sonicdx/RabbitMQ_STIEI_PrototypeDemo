@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -40,13 +41,15 @@ namespace Client01
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body;
-                        //var message = Encoding.UTF8.GetString(body);
+                        //var message = Encoding.UTF8.GetString(body,32,);
                         //var routingKey = ea.RoutingKey;
                         rec_count++;
-                        if(rec_count % 2 == 0)
-                            Console.Write("\r+   ");
-                        else
-                            Console.Write("\r-   ");
+                        //if(rec_count % 2 == 0)
+                        //    Console.Write("\r+   ");
+                        //else
+                        //    Console.Write("\r-   ");
+                        //var js = System.Text.Encoding.UTF8.GetString()
+                        //var msg = JsonConvert.DeserializeObject<MessageBody>()
                     };
                     channel.BasicConsume(queue: queueName,
                                          noAck: true,
