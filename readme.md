@@ -41,7 +41,7 @@
      Year:2017,
      DayofYear:45,
      Hour:12,
-     Minue:15,
+     Minute:15,
      Second:12
    }
    ```
@@ -54,7 +54,7 @@
      Year:2017,
      DayofYear:45,
      Hour:12,
-     Minue:15,
+     Minute:15,
      Second:12
    }
    ```

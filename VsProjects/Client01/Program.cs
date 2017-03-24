@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using BitConvertEx;
 
 namespace Client01
 {
@@ -41,15 +42,18 @@ namespace Client01
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body;
-                        //var message = Encoding.UTF8.GetString(body,32,);
+                        UInt32 MsgTypeID = body.GetUInt32WithEndianBit(0x0D, BitConverterEx.EndianBitType.BigEndian);
+
+                        UInt16 context_len = body.GetUInt16WithEndianBit(0x19, BitConverterEx.EndianBitType.BigEndian);
+                        var message = Encoding.UTF8.GetString(body, 32, context_len);
+                        var obj = JsonConvert.DeserializeObject<MessageBody>(message);
+                        var rec_str = string.Format("{0}-{1} {2}:{3}:{4}", obj.Year, obj.DayofYear, obj.Hour, obj.Minute, obj.Second);
                         //var routingKey = ea.RoutingKey;
                         rec_count++;
-                        //if(rec_count % 2 == 0)
-                        //    Console.Write("\r+   ");
-                        //else
-                        //    Console.Write("\r-   ");
-                        //var js = System.Text.Encoding.UTF8.GetString()
-                        //var msg = JsonConvert.DeserializeObject<MessageBody>()
+                        if(rec_count % 2 == 0)
+                            Console.Write("\r+   " + rec_str);
+                        else
+                            Console.Write("\r-   " + rec_str);
                     };
                     channel.BasicConsume(queue: queueName,
                                          noAck: true,

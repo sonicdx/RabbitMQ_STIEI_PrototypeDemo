@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using BitConvertEx;
+using Newtonsoft.Json;
 
 namespace Client02
 {
@@ -14,7 +16,7 @@ namespace Client02
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             var exchange_name = "ClockTick";
-
+            int minute_msg_count = 0;
 
             int rec_count = 0;
             bool isExit = false;
@@ -44,13 +46,27 @@ namespace Client02
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body;
-                        //var message = Encoding.UTF8.GetString(body);
+                        UInt32 MsgTypeID = body.GetUInt32WithEndianBit(0x0D, BitConverterEx.EndianBitType.BigEndian);
+
+                        if (MsgTypeID == 0x0000002)
+                        {
+                            Console.Beep();
+                            minute_msg_count++;
+                        }
+                           
+
+
+                        UInt16 context_len = body.GetUInt16WithEndianBit(0x19, BitConverterEx.EndianBitType.BigEndian);
+                        var message = Encoding.UTF8.GetString(body, 32, context_len);
+                        var obj = JsonConvert.DeserializeObject<MessageBody>(message);
+                        var rec_str = string.Concat(Enumerable.Repeat("*", minute_msg_count % 10)); ;
                         //var routingKey = ea.RoutingKey;
+
                         rec_count++;
                         if (rec_count % 2 == 0)
-                            Console.Write("\r+   ");
+                            Console.Write("\r+   " + rec_str);
                         else
-                            Console.Write("\r-   ");
+                            Console.Write("\r-   " + rec_str);
                     };
                     channel.BasicConsume(queue: queueName,
                                          noAck: true,
