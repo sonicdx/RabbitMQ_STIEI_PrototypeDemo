@@ -23,7 +23,7 @@ namespace AppBase_Send
         public static long GetTimeUtcstamp(DateTime dateTime)
         {
             DateTime dt1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return (dateTime.ToLocalTime().Ticks - dt1970.Ticks) / TimeSpan.TicksPerMillisecond;
+            return (dateTime.ToUniversalTime().Ticks - dt1970.Ticks) / TimeSpan.TicksPerMillisecond;
         }
 
         /// <summary>
