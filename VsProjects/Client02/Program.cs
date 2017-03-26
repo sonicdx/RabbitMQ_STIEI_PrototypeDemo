@@ -17,6 +17,10 @@ namespace Client02
             var factory = new ConnectionFactory() { HostName = "localhost" };
             var exchange_name = "ClockTick";
             int minute_msg_count = 0;
+            var appid = "25894721";
+            var exchange_id = "01020304";
+            var rnd_id = "010";
+            var queue_name = appid + "X" + exchange_id + "x" + rnd_id;
 
             int rec_count = 0;
             bool isExit = false;
@@ -28,7 +32,7 @@ namespace Client02
                 {
                     channel.ExchangeDeclare(exchange: exchange_name, type: "topic");
 
-                    var queueName = channel.QueueDeclare().QueueName;
+                    var queueName = channel.QueueDeclare(queue_name).QueueName;
                     channel.QueueBind(queue: queueName,
                         exchange: exchange_name,
                         routingKey: "#.SecondTick");
