@@ -4,7 +4,9 @@
 上海电子信息职业技术学院 消息总线原型演示 
 ===========================================================
 [TOC]
-[GitHub主页](https://sonicdx.github.io/RabbitMQ_STIEI_PrototypeDemo/)
+
+[GitHub IO主页](https://sonicdx.github.io/RabbitMQ_STIEI_PrototypeDemo/)
+[GitHub主页](https://github.com/sonicdx/RabbitMQ_STIEI_PrototypeDemo/)
 
 ## 项目说明
 
