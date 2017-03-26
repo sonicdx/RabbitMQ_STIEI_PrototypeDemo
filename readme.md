@@ -4,6 +4,8 @@
 上海电子信息职业技术学院 消息总线原型演示 
 ===========================================================
 [TOC]
+[GitHub主页](https://sonicdx.github.io/RabbitMQ_STIEI_PrototypeDemo/)
+
 ## 项目说明
 
 ​	**AppBase_Send** 模拟一个应用，产生一个消息源。应用名 `ClockTick` , 其消息交换机名称同应用名。 应用编号0x01020304。
@@ -86,7 +88,7 @@
 + 绑定 `ClockTick ` 交换机，路由键 "#.SecondTick"。
 + 绑定 `ClockTick` 交换机，路由键 "#.MinuteTick"。
 
-​	该应用模拟一个消息订阅者，自己的应用ID编号为0x25894721，同时订阅*SecondTick*与*MinuteTick* 消息。界面显示情况为每当收到 *SecondTick* 与*MinuteTick* 消息时，在"+" 与"-" 之间切换，并且在该符号之后按接收到*MinuteTick*消息的数量显示'\*'符号。每次收到  *MinuteTick* 时，电脑蜂鸣器会叫一声。 该项目主体功能代码在 `Program.cs`。
+ ​该应用模拟一个消息订阅者，自己的应用ID编号为0x25894721，同时订阅*SecondTick*与*MinuteTick* 消息。界面显示情况为每当收到 *SecondTick* 与*MinuteTick* 消息时，在"+" 与"-" 之间切换，并且在该符号之后按接收到*MinuteTick*消息的数量显示'\*'符号。每次收到  *MinuteTick* 时，电脑蜂鸣器会叫一声。 该项目主体功能代码在 `Program.cs`。
 
 程序界面如下：
 
